@@ -13,7 +13,7 @@ export function LoginPage() {
 
         if (values?.username === username && values?.password === password) {
             showSuccessNotification();
-            navigate(`/home`);
+            navigate(`/home/todo`);
         } else {
             showFailedNotification();
         }
