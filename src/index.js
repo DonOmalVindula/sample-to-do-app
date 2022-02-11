@@ -4,12 +4,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "@asgardeo/auth-react";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+     <AuthProvider
+        config={ {
+            signInRedirectURL: "http://localhost:3000",
+            signOutRedirectURL: "http://localhost:3000",
+            clientID: "",
+            serverOrigin: "https://api.asgardeo.io/t/omal",
+            scope: [ "openid","profile" ]
+        } }
+    >
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
