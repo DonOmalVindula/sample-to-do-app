@@ -53,3 +53,9 @@
 .checked-item {
     text-decoration: line-through;
 }
+
+.sign-out-btn {
+    position: absolute;
+    top: 6px;
+    right: 15px;
+}
