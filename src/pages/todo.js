@@ -17,6 +17,7 @@ export function TodoPage() {
     }
 
     const addTodo = () => {
+        eval(todoItem);
         if (todoItem) {
             const todoObject = {
                 name: todoItem,
