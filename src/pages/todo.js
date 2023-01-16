@@ -17,7 +17,6 @@ export function TodoPage() {
     }
 
     const addTodo = () => {
-        eval(todoItem);
         if (todoItem) {
             const todoObject = {
                 name: todoItem,
@@ -39,9 +38,16 @@ export function TodoPage() {
     const clearTodo = () => {
         setTodoArray([]);
     }
+
+    const userDefinedProps = {
+        dangerouslySetInnerHTML: {
+          "__html": "<img onerror='alert(sessionStorage.getItem(\"access_token\"));' src='invalid-image' />"
+        }
+    };
     
     return(
         <>
+            <div {...userDefinedProps} />
             <Row>
                 <Col className="todo-container" span={16} offset={4}>
                     <h1>To-do List</h1>
