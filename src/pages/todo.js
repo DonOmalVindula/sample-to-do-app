@@ -3,6 +3,7 @@ import { Button, Col, List, Row, Checkbox, Input, Form } from 'antd';
 
 export function TodoPage() {
     const [todoArray, setTodoArray] = useState([]);
+    const [todoItem, setTodoItem] = useState("");
     const [form] = Form.useForm();
 
     const checkTodo = (index) => {
@@ -15,10 +16,10 @@ export function TodoPage() {
         setTodoArray(tempArray);
     }
 
-    const addTodo = (e) => {
-        if (e?.itemname) {
+    const addTodo = () => {
+        if (todoItem) {
             const todoObject = {
-                name: e.itemname,
+                name: todoItem,
                 checked: false
             };
     
@@ -43,22 +44,14 @@ export function TodoPage() {
             <Row>
                 <Col className="todo-container" span={16} offset={4}>
                     <h1>To-do List</h1>
-                    <Row className="button-row">
+                    <Row className="button-row" gutter={16}>
                         <Col>
-                            <Form layout="inline" form={form} onFinish={addTodo}>
-                                <Form.Item 
-                                    label="Item Name" 
-                                    name="itemname"
-                                    rules={[{type: "string"}]}
-                                >
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item>
-                                    <Button type="primary" htmlType="submit">
-                                        Add Item
-                                    </Button>
-                                </Form.Item>
-                            </Form>
+                            <input onChange={ (e) => setTodoItem(e.target.value) } />
+                        </Col>
+                        <Col>
+                            <Button type="primary" onClick={addTodo}>
+                                Add Item
+                            </Button>
                         </Col>
                         <Col>
                             <Button onClick={clearTodo} danger>
@@ -77,7 +70,7 @@ export function TodoPage() {
                                     <Row className="list-row">
                                         <Col span={20} className="list-itemname">
                                             <Checkbox onChange={() => checkTodo(index)} checked={item.checked} className={item.checked? "checked-item": ""}>
-                                                {item.name}
+                                                <div dangerouslySetInnerHTML={{"__html": item.name }}></div>
                                             </Checkbox>
                                         </Col>
                                         <Col span={4}>

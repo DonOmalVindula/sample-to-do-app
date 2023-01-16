@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, Button } from 'antd';
 import { HomeOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 import { Outlet, Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,10 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 export function HomePage() {
     const [current, setCurrent] = useState("home");
     const Navigate = useNavigate();
+
+    useEffect(() => {
+        sessionStorage.setItem("access_token", "123456-1111-2222-654321");
+    }, []);
 
     const handleClick = (e) => {
         setCurrent(e.key);
