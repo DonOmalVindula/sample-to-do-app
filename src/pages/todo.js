@@ -70,7 +70,7 @@ export function TodoPage() {
                                     <Row className="list-row">
                                         <Col span={20} className="list-itemname">
                                             <Checkbox onChange={() => checkTodo(index)} checked={item.checked} className={item.checked? "checked-item": ""}>
-                                                <div dangerouslySetInnerHTML={{"__html": item.name }}></div>
+                                                <a href={item.name}>{item.name}</a>
                                             </Checkbox>
                                         </Col>
                                         <Col span={4}>
