@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import { Button, Col, List, Row, Checkbox, Input, Form } from 'antd';
 
-export function TodoPage() {
+const TodoPage = () => {
     const [todoArray, setTodoArray] = useState([]);
     const [form] = Form.useForm();
 
     const checkTodo = (index) => {
         var tempArray = todoArray.slice();
-        tempArray[index] = {
-            name: tempArray[index].name,
-            checked: !tempArray[index].checked
-        }
-
+        tempArray[index] = updateTodoItem(tempArray[index]);
         setTodoArray(tempArray);
     }
 
+    const updateTodoItem = (item) => {
+        return {
+            name: item.name,
+            checked: !item.checked
+        }
+    }
+
+    // Function to add a new item to the list
     const addTodo = (e) => {
         if (e?.itemname) {
             const todoObject = {
@@ -41,55 +45,81 @@ export function TodoPage() {
     return(
         <>
             <Row>
-                <Col className="todo-container" span={16} offset={4}>
-                    <h1>To-do List</h1>
-                    <Row className="button-row">
-                        <Col>
-                            <Form layout="inline" form={form} onFinish={addTodo}>
-                                <Form.Item 
-                                    label="Item Name" 
-                                    name="itemname"
-                                    rules={[{type: "string"}]}
-                                >
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item>
-                                    <Button type="primary" htmlType="submit">
-                                        Add Item
-                                    </Button>
-                                </Form.Item>
-                            </Form>
-                        </Col>
-                        <Col>
-                            <Button onClick={clearTodo} danger>
-                                Clear All
+                <Col span={12} offset={6}>
+                    <h1 className="todo-heading">To-do List</h1>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={12} offset={6}>
+                    <Form form={form} onFinish={addTodo}>
+                        <Form.Item name="itemname">
+                            <Input
+                                placeholder="Type here..."
+                                className="todo-input-fields"
+                                data-testid="todo-input-fields"
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                className="todo-add-btn"
+                                data-testid="todo-add-btn"
+                            >
+                                Add
                             </Button>
-                        </Col>
-                    </Row>
-                    <Row className="list-container">
+                        </Form.Item>
+                    </Form>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={12} offset={6}>
+                    {todoArray.length > 0 ? (
                         <List
-                            className="list"
                             bordered
-                            itemLayout="horizontal"
                             dataSource={todoArray}
                             renderItem={(item, index) => (
-                                <List.Item>
-                                    <Row className="list-row">
-                                        <Col span={20} className="list-itemname">
-                                            <Checkbox onChange={() => checkTodo(index)} checked={item.checked} className={item.checked? "checked-item": ""}>
-                                                {item.name}
-                                            </Checkbox>
-                                        </Col>
-                                        <Col span={4}>
-                                            <a className="delete-item" href onClick={() => deleteTodo(index)}>Delete</a>
-                                        </Col>
-                                    </Row>
+                                <List.Item
+                                    actions={[
+                                        <Button
+                                            type="primary"
+                                            onClick={() => deleteTodo(index)}
+                                            className="todo-delete-btn"
+                                        >
+                                            Delete
+                                        </Button>
+                                    ]}
+                                >
+                                    <Checkbox
+                                        onChange={() => checkTodo(index)}
+                                        checked={item.checked}
+                                        className="todo-checkbox"
+                                    >
+                                        {item.name}
+                                    </Checkbox>
                                 </List.Item>
                             )}
                         />
-                    </Row>
+                    ) : (
+                        <p className="todo-empty-text">No Data</p>
+                    )}
+                </Col>
+            </Row>
+            <Row>
+                <Col span={12} offset={6}>
+                    {todoArray.length > 0 && (
+                        <Button
+                            type="primary"
+                            onClick={clearTodo}
+                            className="todo-clear-btn"
+                        >
+                            Clear All
+                        </Button>
+                    )}
                 </Col>
             </Row>
         </>
     )
 }
+
+export default TodoPage;

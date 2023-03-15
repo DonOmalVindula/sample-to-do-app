@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { SecureApp } from "@asgardeo/auth-react";
 import { Spin } from "antd";
 import { HomePage } from "./pages/home";
-import { TodoPage } from "./pages/todo";
+import TodoPage from "./pages/todo";
 import { SettingsPage } from "./pages/settings";
 
 const SignInLoader = () => {
