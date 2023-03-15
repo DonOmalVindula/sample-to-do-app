@@ -13,7 +13,7 @@ ReactDOM.render(
             signInRedirectURL: "http://localhost:3000",
             signOutRedirectURL: "http://localhost:3000",
             clientID: process.env.REACT_APP_clientid,
-            serverOrigin: "https://api.asgardeo.io/t/omal",
+            baseUrl: "https://api.asgardeo.io/t/omal",
             scope: [ "openid","profile" ]
         } }
     >
