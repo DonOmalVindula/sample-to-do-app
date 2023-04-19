@@ -9,7 +9,7 @@ export function LoginPage() {
 
     const onFinish = (values) => {
         const username = "omal";
-        const password = "vindula";
+        const password = "password";
 
         if (values?.username === username && values?.password === password) {
             showSuccessNotification();
